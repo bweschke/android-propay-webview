@@ -15,6 +15,9 @@ public class PermissionsController {
      * Permissions
      */
     public static String[] permissions = {
+            Manifest.permission.INTERNET,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.BLUETOOTH_ADMIN,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_COARSE_LOCATION,

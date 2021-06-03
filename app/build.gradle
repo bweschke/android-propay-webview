@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.skt.propaywebapp"
         minSdkVersion 28
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.12'
@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.5.0'
     // implementation 'com.github.smart-fun:XmlToJson:1.4.4'
     api 'org.slf4j:slf4j-api:1.7.25'
     api 'com.github.tony19:logback-android:2.0.0'

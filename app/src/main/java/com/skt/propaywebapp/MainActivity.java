@@ -29,6 +29,7 @@ import com.anywherecommerce.android.sdk.MeaningfulError;
 import com.anywherecommerce.android.sdk.MeaningfulErrorListener;
 import com.anywherecommerce.android.sdk.MeaningfulMessage;
 import com.anywherecommerce.android.sdk.RequestListener;
+import com.anywherecommerce.android.sdk.SDKManager;
 import com.anywherecommerce.android.sdk.TaskListener;
 import com.anywherecommerce.android.sdk.Terminal;
 import com.anywherecommerce.android.sdk.devices.CardReader;
@@ -53,39 +54,25 @@ public class MainActivity extends AppCompatActivity {
 
     public MainActivity activity;
 
-    public void runAppendFromAndroid() {
-        webView.loadUrl("javascript:appendFromAndroid();");
-    }
 
-    public void initializeTerminal(String terminalId, String terminalpass) {
+    /*public void initializeTerminal(String terminalId, String terminalpass) {
         Log.i("initializeTerminal", "Terminal initializing for ID: "+terminalId);
         try {
             Terminal.initializeFromCloud(terminalId, terminalpass, new TaskListener() {
                 @Override
                 public void onTaskComplete() {
                     Log.i("initializeTerminal", "Cloud Terminal initialized for ID: " + terminalId + " Endpoint details " + Terminal.getInstance().getEndpoint().getProvider());
-                    //initializeTerminalBtn.setText("Initialize Cloud Terminal");
-                    //initializeTerminalBtn.setEnabled(true);
-
-                    //addText("Cloud Terminal Initialized. Endpoint details " + Terminal.getInstance().getEndpoint().getProvider());
-                    //changeState(getCloudMsgBtn, true);
-
-                    //loginLayout.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onTaskFailed(MeaningfulError meaningfulError) {
                     Log.i("initializeTerminal", "Cloud Terminal initialization for ID: " + terminalId + " failed. " + meaningfulError.message);
-                    //initializeTerminalBtn.setText("Initialize Cloud Terminal");
-                    //initializeTerminalBtn.setEnabled(true);
-
-                    //Toast.makeText(MainActivity.this, "Terminal Initialization failed " + meaningfulError.message, Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception ex) {
             Log.w("initializeTerminal", "Exception: ", ex.fillInStackTrace());
             }
-    }
+    }*/
 
 
 
@@ -104,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClient());
         WebAppInterface wva = new WebAppInterface(this, webView);
         webView.addJavascriptInterface(wva, "droid");
-        webView.loadUrl("file:///android_asset/index.html");
+        webView.loadUrl("file:///android_asset/login.html");
         // Caching
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAppCachePath(appCachePath);
