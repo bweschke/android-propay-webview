@@ -5,26 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body onload="connectBTReader()">
+<body onload="activateCloudTerminal()">
 <script type="text/javascript">
-
-        function tryLogin() {
-            loginresult = droid.tryLogin(document.getElementById("terminalid").value, document.getElementById("terminalpass").value);
-        }
+        sessionKey = null;
+        terminalId = null;
 
         function appendFromAndroid(str) {
-            document.getElementById("errormsg").innerHTML = '<font color="red">' + str + '</font>';
+            document.getElementById("statusmsg").innerHTML = '<font color="blue">' + str + '</font>';
         }
 
-        function connectBTReader() {
-            droid.connectBTReader();
+        function activateCloudTerminal() {
+            sessionKey = droid.getSessionKey();
+            terminalId = droid.getTerminalId();
+            droid.activateCloudTerminal();
+        }
+
+        function runSaleTransaction() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://api.payments.ac/v1/Wondersco/terminals/' + terminalId + '/transaction', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('sessionKey', sessionKey);
+            xhr.send(JSON.stringify({
+                transactionType: 'SALE',
+                id: document.getElementById("transactionid").value,
+                totalAmount: document.getElementById("totalamt").value,
+                currency: 'USD',
+                rid: document.getElementById("rid").value,
+                tipamount: document.getElementById("tipamount").value,
+                callbackUrl: 'https://coreapp.letsdochinese.com/bwmessagingapi/callback'
+            }));
         }
     </script>
 <h1>Terminal:</h1>
-Terminal ID: <input type="text" id="terminalid"/><br/>
-Terminal Password: <input type="text" id="terminalpass"/><br/>
-<input type="button" id="loginnow" value="Login" onclick="tryLogin()"/>
+<b>Sale Transaction:</b>
+Transaction ID: <input type="text" id="transactionid"/><br/>
+Total Amount (including tip): <input type="text" id="totalamt"/><br/>
+RID: <input type="text" id="rid"/><br/>
+Tip Amount: <input type="text" id="tipamount"/><br/>
+<input type="button" id="runsaletransaction" value="Process" onclick="runSaleTransaction()"/>
 <br/><br/>
-<div id="errormsg"></div>
+<div id="statusmsg"></div>
 </body>
 </html>
