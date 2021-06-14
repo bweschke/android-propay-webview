@@ -232,7 +232,7 @@ public class WebAppInterface {
             return;
         }
 
-        if (transaction.getTransactionType() != TransactionType.SALE) {
+        if (transaction.getTransactionType() != TransactionType.SALE && transaction.getTransactionType() != TransactionType.AUTHONLY) {
             this.transaction.execute(new TransactionListener() {
                 @Override
                 public void onTransactionCompleted() {

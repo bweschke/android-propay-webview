@@ -26,7 +26,7 @@
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.setRequestHeader('sessionKey', sessionKey);
             xhr.send(JSON.stringify({
-                transactionType: 'SALE',
+                transactionType: 'AUTHONLY',
                 id: document.getElementById("transactionid").value,
                 totalAmount: document.getElementById("totalamt").value,
                 currency: 'USD',
