@@ -35,6 +35,25 @@
                 callbackUrl: 'https://coreapp.letsdochinese.com/bwmessagingapi/callback'
             }));
         }
+
+        function runCaptureTransaction() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://api.payments.ac/v1/Wondersco/terminals/' + terminalId + '/transaction', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('sessionKey', sessionKey);
+            xhr.send(JSON.stringify({
+                transactionType: 'CAPTURE',
+                refTransactionId: document.getElementById("reftransactionid").value,
+                totalAmount: document.getElementById("captotalamt").value,
+                tip: {
+                calculationMethod: "FIXED_AMOUNT",
+                amount: {
+                value: document.getElementById("captipamount").value,
+                }
+                }
+            }));
+        }
+
     </script>
 <h1>Terminal:</h1>
 <b>Sale Transaction:</b>
@@ -44,6 +63,13 @@ RID: <input type="text" id="rid"/><br/>
 Tip Amount: <input type="text" id="tipamount"/><br/>
 <input type="button" id="runsaletransaction" value="Process" onclick="runSaleTransaction()"/>
 <br/><br/>
+<b>Capture Transaction:</b>
+RefTransactionId (externalId): <input type="text" id="reftransactionid"/><br/>
+Total Amount (including tip): <input type="text" id="captotalamt"/><br/>
+Tip Amount: <input type="text" id="captipamount"/><br/>
+<input type="button" id="runcapturetransaction" value="Process" onclick="runCaptureTransaction()"/>
+<br/><br/>
+
 <div id="statusmsg"></div>
 </body>
 </html>
